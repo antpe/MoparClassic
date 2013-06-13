@@ -19,6 +19,8 @@
 	<permission name="skull">11</permission>
 	<!-- Sets fatigue to 100% -->
 	<permission name="fatigue">11</permission>
+	<!-- Sets exp -->
+	<permission name="setxp">11</permission>
 	<!-- Displays the online players -->
 	<permission name="online">1</permission>
 	<!-- Displays number of players and NPCs in view -->
