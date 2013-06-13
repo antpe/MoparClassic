@@ -326,14 +326,24 @@ public class InvActionHandler implements PacketHandler {
 					owner.getInventory().remove(item.id, item.amount, false);
 					switch (item.id) {
 					case 20: // Bones
+						//in rsc it was 3.75 exp per burial
+						//howerver the database here is in int
+						//so there is a 25% chance of 3 xp and 75% change of 4 exp
+						if (java.lang.Math.random() >= 0.75 ) owner.incExp(5, 3, true);
+						else owner.incExp(5, 4, true);
+						break;
 					case 604: // Bat bones
-						owner.incExp(5, 8, true);
+						//4.5 per bones in rsc
+						if (java.lang.Math.random() >= 0.5) owner.incExp(5, 4, true);
+						else owner.incExp(5, 5, true);
 						break;
 					case 413: // Big bones
-						owner.incExp(5, 24, true);
+						//12.5 exp in rsc
+						if (java.lang.Math.random() >= 0.5)  owner.incExp(5, 12, true);
+						else owner.incExp(5, 13, true);
 						break;
 					case 814: // Dragon bones
-						owner.incExp(5, 90, true);
+						owner.incExp(5, 60, true);
 						break;
 					}
 					owner.getActionSender().sendStat(5);
