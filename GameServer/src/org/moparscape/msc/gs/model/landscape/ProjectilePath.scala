@@ -60,13 +60,15 @@ class ProjectilePath(xi: Int, yi: Int, xf: Int, yf: Int) {
   }
 
   private def checkSouth(x: Int, y: Int, dir: Int) = {
-    checkTile(4, x, y, dir)
+    //checkTile(4, x, y, dir)
+    checkNorth(x,y+1,dir)
   }
   private def checkEast(x: Int, y: Int, dir: Int) = {
     checkTile(2, x, y, dir)
   }
   private def checkWest(x: Int, y: Int, dir: Int) = {
-    checkTile(8, x, y, dir)
+    //checkTile(8, x, y, dir)
+    checkEast(x+1,y,dir)
   }
 
   private def checkTile(face: Byte, x: Int, y: Int, dir: Int): Boolean = {
@@ -82,7 +84,7 @@ class ProjectilePath(xi: Int, yi: Int, xf: Int, yf: Int) {
       println(t.overlay)
       println("===")
       if ((dir == 1 || dir == 3) && !allowedWallTypes(0).contains(t.horizontalWallVal & 0xFF)) return false
-      if ((dir == 2 || dir == 3) && !allowedWallTypes(0).contains(t.verticalWallVal & 0xFF)) return false
+      else if ((dir == 2 || dir == 3) && !allowedWallTypes(0).contains(t.verticalWallVal & 0xFF)) return false
     }
 
     if (((face & 32) != 0 || (face & 16) != 0) && !allowedWallTypes(1).contains(t.diagWallVal)) return false
