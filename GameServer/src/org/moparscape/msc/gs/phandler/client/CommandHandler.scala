@@ -91,6 +91,7 @@ class CommandHandler extends PacketHandler {
       case "time" => time(p)
       case "skull" => skull(p)
       case "fatigue" => fatigue(p)
+      case "setxp" => setxp(p, args)
       case "online" => online(p)
       case "nearby" | "inview" => inView(p)
       case "stuck" => stuck(p)
@@ -140,6 +141,10 @@ class CommandHandler extends PacketHandler {
     p.setFatigue(100)
     p.getActionSender.sendFatigue
     message(p, "Your fatigue is now 100%")
+  }
+
+  def setxp(p: Player, args: Array[String]) {
+     p.incExp(args(0).toInt, (args(1).toFloat / Config.expRate).toInt, false)
   }
 
   def online(p: Player) {
