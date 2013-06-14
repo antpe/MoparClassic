@@ -9,8 +9,8 @@ import org.moparscape.msc.gs.Instance
  */
 class ProjectilePath(xi: Int, yi: Int, xf: Int, yf: Int) {
   private val allowedWallTypes = List(
-    List(4, 5, 6, 42, 14), // Normal
-    List(229, 5)) // Diag  
+    List(0, 4, 5, 6, 42, 14), // Normal
+    List(0, 229, 5)) // Diag  
 
   def isValid: Boolean = {
     if (xi == xf && yf == yi) {
@@ -60,13 +60,13 @@ class ProjectilePath(xi: Int, yi: Int, xf: Int, yf: Int) {
   }
 
   private def checkSouth(x: Int, y: Int, dir: Int) = {
-    checkTile(4, x, y, dir)
+    checkNorth(x,y+1,dir)
   }
   private def checkEast(x: Int, y: Int, dir: Int) = {
     checkTile(2, x, y, dir)
   }
   private def checkWest(x: Int, y: Int, dir: Int) = {
-    checkTile(8, x, y, dir)
+    checkEast(x+1,y,dir) 
   }
 
   private def checkTile(face: Byte, x: Int, y: Int, dir: Int): Boolean = {
@@ -81,8 +81,11 @@ class ProjectilePath(xi: Int, yi: Int, xf: Int, yf: Int) {
       println(face & b)
       println(t.overlay)
       println("===")
-      if ((dir == 1 || dir == 3) && !allowedWallTypes(0).contains(t.horizontalWallVal & 0xFF)) return false
-      if ((dir == 2 || dir == 3) && !allowedWallTypes(0).contains(t.verticalWallVal & 0xFF)) return false
+      if ((dir == 1) && !allowedWallTypes(0).contains(t.horizontalWallVal & 0xFF)) return false
+      if ((dir == 2) && !allowedWallTypes(0).contains(t.verticalWallVal & 0xFF)) return false
+      if ((dir == 3) && !allowedWallTypes(0).contains(t.horizontalWallVal & 0xFF) && !allowedWallTypes(0).contains(t.verticalWallVal & 0xFF)) {
+        return false
+      }
     }
 
     if (((face & 32) != 0 || (face & 16) != 0) && !allowedWallTypes(1).contains(t.diagWallVal)) return false
