@@ -659,7 +659,7 @@ public class InvUseOnObject implements PacketHandler {
 													handleSmithing(item.id, 0);
 													break;
 												case 1:
-													if (Server.isMembers()) {
+													if (!Server.isMembers()) {
 														player.getActionSender()
 																.sendMessage(
 																		GameServer.P2P_LIMIT_MESSAGE);
@@ -902,7 +902,7 @@ public class InvUseOnObject implements PacketHandler {
 										break;
 									case 2:
 
-										if (Server.isMembers()) {
+										if (!Server.isMembers()) {
 											player.getActionSender()
 													.sendMessage(
 															GameServer.P2P_LIMIT_MESSAGE);
